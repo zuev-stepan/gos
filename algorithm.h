@@ -13,6 +13,8 @@
 namespace gradient_finder
 {
 
+static constexpr size_t kInf = std::numeric_limits<size_t>::max();
+
 struct PosValue
 {
     size_t pos;
@@ -119,13 +121,13 @@ Rect find_gradient(const ImageType& image)
                 left[0] = GradientDescription<ImageType>();
             }
             leftPush[x].setPos(y - up[x].length + 1);
-            leftPush[x].add(y, left[x].length);
+            leftPush[x].add(y, kInf - left[x].length);
 
             upPush.add(x, up[x].length);
             auto& upPushMin = upPush.getMin();
 
             auto leftUpPushBound = upPushMin.pos == x ? 0 : upPushMin.pos + 1;
-            auto leftPushBound = x - leftPush[x].getMin().value + 1;
+            auto leftPushBound = x - (kInf - leftPush[x].getMin().value) + 1;
             leftBound[x] = std::max(leftUpPushBound, leftPushBound);
         }
 
@@ -150,7 +152,7 @@ Rect find_gradient(const ImageType& image)
 
                 colorChanges[x] += horizontalColorChanges.size();
             }
-            /*bool valid = true;
+            bool valid = true;
             if (left[x].currentWidth != left[x].length && right.currentWidth != right.length)
             {
                 if (left[x].width != right.width || left[x].diff != right.diff)
@@ -165,16 +167,16 @@ Rect find_gradient(const ImageType& image)
             if (!valid)
             {
                 right = GradientDescription<ImageType>();
-            }*/
+            }
 
             rightPush[x].setPos(y - up[x].length + 1);
-            rightPush[x].add(y, right.length);
+            rightPush[x].add(y, kInf - right.length);
 
             upPush.add(x, up[x].length);
             auto& upPushMin = upPush.getMin();
 
             auto rightUpPushBound = upPushMin.pos == x ? image.getWidth() - 1 : upPushMin.pos - 1;
-            auto rightPushBound = x + rightPush[x].getMin().value - 1;
+            auto rightPushBound = x + (kInf - rightPush[x].getMin().value) - 1;
             rightBound[x] = std::min(rightUpPushBound, rightPushBound);
         }
 
@@ -194,3 +196,4 @@ Rect find_gradient(const ImageType& image)
 }
 
 #endif // __GRADIENT_FINDER_ALGORITHM_H__
+
