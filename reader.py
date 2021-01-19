@@ -15,8 +15,9 @@ def process_image(image, idx):
     cv2.imwrite(f'images/{idx}.jpg', image)
 
 
-h = 500
-w = 500
+
+h = 1000
+w = 1000
 idx = 0
 for x, y in zip([100, 250], [60, 300]):
     for width, height in zip([10, 144], [111, 65]):
@@ -49,26 +50,3 @@ for x, y in zip([100, 250], [60, 300]):
                 image[j][i][1] = c
                 image[j][i][2] = c
         process_image(image, idx)
-
-#image = cv2.imread('test.png')
-#image = image[0:20, 0:20]
-#for i in range(3, 18):
-#    for j in range(3, 18):
-#        image[i][j] = [i, i, i]
-#cv2.rectangle(image, (686, 0), (764, 388), color=(0, 255, 0), thickness=3)
-
-"""
-print(image.shape[0])
-print(image.shape[1])
-print(int(bytes[0]))
-print(int(bytes[50000]))
-print(int(bytes[50001]))
-print(int(bytes[50002]))"""
-
-
-#with open('test.txt', 'wb') as f:
-#    f.write(header + bytes)
-
-"""
-result = subprocess.run(['./gradient_finder'], input=header + bytes, stdout=subprocess.PIPE)
-print(result.stdout)"""

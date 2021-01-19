@@ -16,7 +16,7 @@ void solve()
     std::cin.read(image.bytes(), 1); // space
     std::cin.read(image.bytes(), sizeof(image[0][0]) * width * height);
 
-    auto ans = find_gradient_simple(image);
+    auto ans = find_gradient(image);
     std::cout << ans.left << ' ' << ans.right << ' ' << ans.up << ' ' << ans.down << std::endl;
 
     /*std::cout << width << std::endl;

@@ -58,12 +58,6 @@ struct ColumnPart
     }
 };
 
-template <typename GradientDescription>
-bool is_valid_concat(const GradientDescription& left, const GradientDescription& right)
-{
-
-}
-
 template <typename ImageType>
 Rect find_gradient(const ImageType& image)
 {
@@ -156,9 +150,8 @@ Rect find_gradient(const ImageType& image)
 
                 colorChanges[x] += horizontalColorChanges.size();
             }
-            rightPush[x].setPos(y - up[x].length + 1);
-            //bool valid = true;
-            /*if (left[x].currentWidth != left[x].length && right.currentWidth != right.length)
+            /*bool valid = true;
+            if (left[x].currentWidth != left[x].length && right.currentWidth != right.length)
             {
                 if (left[x].width != right.width || left[x].diff != right.diff)
                     valid = false;
@@ -168,15 +161,13 @@ Rect find_gradient(const ImageType& image)
                 else if (left[x].currentWidth == right.width && right.currentWidth == right.width && left[x + 1].length <= left[x].length)
                     valid = false;
             }
-            else if (left[x].currentWidth != left[x].length)
-            {
 
-            }
-            else if (right.currentWidth != right.length)
+            if (!valid)
             {
-
+                right = GradientDescription<ImageType>();
             }*/
 
+            rightPush[x].setPos(y - up[x].length + 1);
             rightPush[x].add(y, right.length);
 
             upPush.add(x, up[x].length);
